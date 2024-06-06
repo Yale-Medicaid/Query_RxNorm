@@ -1,4 +1,4 @@
-# RiskAdjustment
+# NDC to ATC Mapping
 
 Python code to query the RxNorm API and map provided NDC11 codes to their ATC classification.
 
