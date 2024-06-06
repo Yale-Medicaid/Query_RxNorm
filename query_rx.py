@@ -253,11 +253,14 @@ def query_RxNorm_ndc_properties(ndc11):
             s = s['ndcPropertyList']['ndcProperty'][0]
             d = {k: s[k] for k in ['ndc10', 'ndc9', 'ndcItem', 'rxcui', 'splSetIdItem']}
             
-            for i, val in enumerate(s['packagingList']['packaging']):
-                d[f'packaging_{i}'] = val
-            if s['propertyConceptList'] is not None:
-                for sd in s['propertyConceptList']['propertyConcept']:
-                    d[sd['propName']] = sd['propValue']
+            try:
+                for i, val in enumerate(s['packagingList']['packaging']):
+                    d[f'packaging_{i}'] = val
+                if s['propertyConceptList'] is not None:
+                    for sd in s['propertyConceptList']['propertyConcept']:
+                        d[sd['propName']] = sd['propValue']
+            except KeyError:
+                pass
         # If there was no response, need to check drug history, NDC may be inactive
         else: 
             r = f'https://rxnav.nlm.nih.gov/REST/ndcstatus.json?ndc={ndc}'
@@ -265,7 +268,7 @@ def query_RxNorm_ndc_properties(ndc11):
             if s:
                 rxcui = s['ndcStatus']['rxcui']
                 rxcui = {'': np.NaN}.get(rxcui, rxcui)
-                d = {'ndcItem': s['ndcStatus']['ndc11'], 'rxcui': rxcui}
+                d = {'ndcItem': s['ndcStatus']['ndc11'], 'rxcui': rxcui, 'status': s['ndcStatus']['status']}
             else:
                 d = {'ndcItem': ndc}
 
