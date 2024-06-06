@@ -4,7 +4,7 @@ Python code to query the RxNorm API and map provided NDC11 codes to their ATC cl
 
 ### Getting started
 
-The code requires the following python libraries: `pandas`, `numpy`, `requests`. Once you've forked the repository, you should be able to import the module and run the main function `main_query_from_new_ndc11` with a list of NDC11 codes that you want to map. 
+The code requires the following python libraries: `pandas`, `numpy`, `requests`. Once you clone the repository, you should be able to import the module and run the main function `main_query_from_new_ndc11` with a list of NDC11 codes that you want to map. 
 
 ```
 import pandas as pd
